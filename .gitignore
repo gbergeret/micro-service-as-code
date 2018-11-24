@@ -1,0 +1,9 @@
+# Terraform
+*.tfstate*
+.terraform
+*_override.tf
+
+# Ruby
+.bundle
+.kitchen/
+Gemfile.lock
