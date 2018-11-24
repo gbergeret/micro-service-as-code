@@ -1,0 +1,26 @@
+---
+driver:
+  name: terraform
+  root_module_directory: test/fixtures/wrapper
+
+provisioner:
+  name: terraform
+
+verifier:
+  name: terraform
+
+platforms:
+  - name: coreos
+    verifier:
+      systems:
+        - name: local
+          backend: local
+          controls:
+            - http_healthcheck
+
+suites:
+  - name: default
+    lifecycle:
+      pre_verify:
+        # Wait for DNS propagation so API is reachable
+        - local: sleep 60

@@ -1,0 +1,25 @@
+---
+rvm:
+  - 2.3.1
+
+sudo: true
+
+before_install:
+  - sudo apt-get update
+
+install:
+  - sudo apt-get install -y unzip
+  - wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+  - unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+  - sudo mv terraform /usr/local/bin
+  - rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+  - bundle install
+
+before_script:
+  - kitchen create
+
+script:
+  - kitchen verify
+
+after_script:
+  - kitchen destroy

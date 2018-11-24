@@ -1,0 +1,7 @@
+---
+name: default
+
+attributes:
+  - name: app_url
+    type: string
+    required: true
