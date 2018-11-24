@@ -1,9 +1,10 @@
 
 url = attribute("app_url")
 
-control 'http_healthcheck' do
+control 'http_root_endpoint' do
   describe http("http://#{url}") do
     its('status') { should eq 200 }
-    its('body') { should match (/Welcome to nginx!/) }
+    its('body') { should cmp "Hello World!" }
   end
 end
+

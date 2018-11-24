@@ -1,7 +1,10 @@
 ---
 driver:
   name: terraform
+  command_timeout: 1200  # 10 minutes (default: 600)
   root_module_directory: test/fixtures/wrapper
+  variables:
+    app_version: <%= ENV['APP_VERSION'] %>
 
 provisioner:
   name: terraform
@@ -16,11 +19,12 @@ platforms:
         - name: local
           backend: local
           controls:
-            - http_healthcheck
+            - http_root_endpoint
+            - http_ping_endpoint
 
 suites:
   - name: default
     lifecycle:
       pre_verify:
-        # Wait for DNS propagation so API is reachable
+        # Wait for DNS propagation so App is reachable
         - local: sleep 60

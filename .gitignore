@@ -1,5 +1,6 @@
 # Terraform
 *.tfstate*
+terraform.tfvars
 .terraform
 *_override.tf
 

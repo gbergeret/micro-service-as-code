@@ -1,3 +1,11 @@
+data "template_file" "bootstrap" {
+  template = "${file("${path.module}/bootstrap.yml")}"
+
+  vars {
+    app_docker_image = "gbergere/micro-service-as-code:${var.app_version}"
+  }
+}
+
 resource "aws_launch_configuration" "ec2" {
   name_prefix   = "${var.name_prefix}"
   image_id      = "${data.aws_ami.core.id}"
@@ -8,7 +16,7 @@ resource "aws_launch_configuration" "ec2" {
     "${var.additional_security_groups}",
   ]
 
-  user_data = "#!/bin/sh\ndocker run -d -p 8080:80 nginx"
+  user_data_base64 = "${base64encode(data.template_file.bootstrap.rendered)}"
 
   lifecycle {
     create_before_destroy = true
@@ -21,7 +29,7 @@ resource "aws_autoscaling_group" "ec2" {
   load_balancers       = ["${aws_elb.lb.name}"]
   vpc_zone_identifier  = ["${var.subnets}"]
 
-  min_size                  = 1
+  min_size                  = 2
   max_size                  = 2
   wait_for_elb_capacity     = 1
   wait_for_capacity_timeout = "5m"
@@ -31,6 +39,12 @@ resource "aws_autoscaling_group" "ec2" {
   tag {
     key                 = "Name"
     value               = "${var.name_prefix}ec2"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Version"
+    value               = "${var.app_version}"
     propagate_at_launch = true
   }
 

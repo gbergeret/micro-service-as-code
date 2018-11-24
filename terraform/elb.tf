@@ -18,7 +18,7 @@ resource "aws_elb" "lb" {
     healthy_threshold   = 3
     unhealthy_threshold = 2
     timeout             = 3
-    target              = "HTTP:8080/"
+    target              = "HTTP:8080/health"
     interval            = 30
   }
 
