@@ -1,0 +1,19 @@
+#cloud-config
+
+coreos:
+  units:
+    - name: app.service
+      command: start
+      content: |
+        [Unit]
+        Description=An app service unit!
+
+        [Service]
+        ExecStartPre=-/usr/bin/docker kill app
+        ExecStartPre=-/usr/bin/docker rm app
+        ExecStartPre=/usr/bin/docker pull ${app_docker_image}
+        ExecStart=/usr/bin/docker run --name app -p 8080:3000 ${app_docker_image}
+        Restart=on-failure
+
+        [Install]
+        WantedBy=multi-user.target

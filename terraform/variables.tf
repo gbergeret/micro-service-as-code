@@ -4,6 +4,8 @@ variable "name_prefix" {
 
 variable "vpc_id" {}
 
+variable "app_version" {}
+
 variable "subnets" {
   type = "list"
 }
