@@ -1,3 +1,3 @@
 output "url" {
-  value = "${aws_elb.lb.dns_name}"
+  value = "${aws_lb.lb.dns_name}"
 }
