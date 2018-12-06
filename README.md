@@ -29,7 +29,7 @@ on Kubernetes (reason why I build a Docker container) but for now we keep
 dependencies simple.
 
 * TravisCI
-* Docker and DockerHub
+* Docker and DockerHub (with multi-stage build)
 * GitHub (as you can see)
 * Terraform
 * Test Kitchen (to test Infrastructure as Code)
