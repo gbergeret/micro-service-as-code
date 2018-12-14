@@ -1,6 +1,6 @@
 ---
 rvm:
-  - 2.3.1
+  - 2.4.2
 
 sudo: true
 
@@ -22,12 +22,12 @@ install:
 
 before_script:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - kitchen create
+  - bundle exec kitchen create
 
 script:
   - docker build -t gbergere/micro-service-as-code:${TRAVIS_COMMIT} .
   - docker push gbergere/micro-service-as-code:${TRAVIS_COMMIT}
-  - kitchen verify
+  - bundle exec kitchen verify
 
 after_script:
-  - kitchen destroy
+  - bundle exec kitchen destroy
