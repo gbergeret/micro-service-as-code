@@ -7,7 +7,7 @@ variable "vpc_id" {}
 variable "app_version" {}
 
 variable "subnets" {
-  type = "list"
+  type = "map"
 }
 
 variable "additional_security_groups" {

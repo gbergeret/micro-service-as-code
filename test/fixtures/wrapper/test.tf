@@ -8,6 +8,8 @@ module "vpc" {
   source = "github.com/gbergere/tf-vpc-module"
 
   name_prefix = "${local.name_prefix}"
+
+  price_saving_enabled = "1"
 }
 
 module "app" {
@@ -16,7 +18,7 @@ module "app" {
   name_prefix = "${local.name_prefix}"
 
   vpc_id                     = "${module.vpc.vpc_id}"
-  subnets                    = ["${module.vpc.subnets["public"]}"]
+  subnets                    = "${module.vpc.subnets}"
   additional_security_groups = ["${module.vpc.default_security_group}"]
 
   app_version = "${var.app_version}"

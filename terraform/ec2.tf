@@ -29,7 +29,7 @@ resource "aws_autoscaling_group" "ec2" {
   name_prefix          = "${var.name_prefix}"
   launch_configuration = "${aws_launch_configuration.ec2.name}"
   target_group_arns    = ["${aws_lb_target_group.g.arn}"]
-  vpc_zone_identifier  = ["${var.subnets}"]
+  vpc_zone_identifier  = ["${var.subnets["private"]}"]
 
   min_size                  = 2
   max_size                  = 2

@@ -8,7 +8,7 @@ resource "random_id" "target_group" {
 
 resource "aws_lb" "lb" {
   name            = "${var.name_prefix}lb-${random_id.lb.hex}"
-  subnets         = ["${var.subnets}"]
+  subnets         = ["${var.subnets["public"]}"]
   security_groups = ["${aws_security_group.lb.id}"]
 
   enable_cross_zone_load_balancing = true
