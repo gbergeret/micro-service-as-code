@@ -5,7 +5,7 @@ locals {
 }
 
 module "vpc" {
-  source = "github.com/gbergere/tf-vpc-module"
+  source = "github.com/gbergere/tf-vpc-module?ref=v1.0"
 
   name_prefix = "${local.name_prefix}"
 
