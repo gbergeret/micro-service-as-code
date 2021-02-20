@@ -7,8 +7,8 @@ This repository will use EC2 instances to deploy the service but we can easily
 swap this by a kubernetes cluster (commonly used in micro-services environment).
 We are going to use EC2 instances here to reduce dependencies in this PoC.
 
-This infrastructure is coded as a module so we can run end to end tests using
-test-kitchen.
+This infrastructure is coded in HCL2 as a module so we can run end to end tests
+using test-kitchen.
 
 ## Micro Service
 
@@ -31,7 +31,7 @@ dependencies simple.
 * TravisCI
 * Docker and DockerHub (with multi-stage build)
 * GitHub (as you can see)
-* Terraform
+* Terraform (>= v0.12.0)
 * Test Kitchen (to test Infrastructure as Code)
 * AWS (to run the service)
 * CoreOS (with `cloud-config`)
